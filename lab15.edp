@@ -1,0 +1,34 @@
+real t = 0, dt = 0.1, endT = 1., m = 10;
+
+real[int] vals(-0.5:0.01:0.013);
+
+func real eta(real t) { return 2 ^ (-t);}
+func real mu(real t) { return 3 * 2 ^ (-t);}
+func real solution(real t) { return 3 ^ x * 2 ^ (-t);}
+ 
+func u0 = 3 ^ x;
+
+mesh Th = square(20, 20, [x, 0.4* y]);
+
+fespace Vh(Th, P2);
+Vh u, v, k, f, c, exact=solution(endT), uOld = u0;
+ 
+problem Problem(u, v)
+= int2d(Th)((dx(u) * dx(v) + dy(u) * dy(v)) * k)
++ int2d(Th)(u  * c / dt * v)
+- int2d(Th)(uOld * c / dt * v)
+- int2d(Th)(f * v)
++ on(4, u = eta(t))
++ on(2, u = mu(t));
+
+
+for (int i = 0; i < m; i++){
+    t += dt;
+    k = 10 * (u * u) + 1;
+    f = (10 * (u * u) + 1)*cos(t)/(x + 1) + 2 * u * cos(u * u) * (sin(x)*sin(x))/pow (x+1, 4) - (2*sin(u * u)* sin(t))/ (pow (x + 1, 3));
+    c = sin (u * u);
+    Problem;
+    uOld = u;
+    plot(u, fill=true, value=true,wait=false);
+}
+plot(exact, fill=true, value=true,wait=true);

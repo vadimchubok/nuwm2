@@ -1,0 +1,31 @@
+-- FreeFem++ v4.6 (Fri, Apr 03, 2020  2:08:08 PM - git v4.6)
+ Load: lg_fem lg_mesh lg_mesh3 eigenvalue
+    1 : mesh Th = square(20,20, [2 * x, y]);
+    2 : func f = 4 * x^3 + 6 * x - 4;
+    3 : func globalsol = (x^3 - 1);
+    4 :
+    5 :
+    6 :
+    7 : fespace Uh(Th, P1);
+    8 : Uh u;
+    9 : Uh v;
+   10 : Uh ans = globalsol;
+   11 :
+   12 : solve s(u, v)
+   13 : = int2d(Th)(dx(u) * dx(v))
+   14 : + int2d(Th)(u * v)
+   15 : + int2d(Th)(f * v)
+   16 : + on(0, u = 0);
+   17 :
+   18 :
+   19 : plot(u, fill=true, value=true,wait=true);
+   20 : plot(ans, fill=true, value=true,wait=true); sizestack + 1024 =2720  ( 1696 )
+ 
+  -- Square mesh : nb vertices  =441 ,  nb triangles = 800 ,  nb boundary edges 80
+ Warning: -- Your set of boundary condition is incompatible with the mesh label.
+  -- Solve :
+          min -15.4457  max -5.53729
+times: compile 0.014s, execution 0.096s,  mpirank:0
+ CodeAlloc : nb ptr  3510,  size :473376 mpirank: 0
+Ok: Normal End
+ try getConsole C:\Users\vadim\OneDrive\Desktop\New folder (2)\freefem\lab6(3).edp

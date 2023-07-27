@@ -1,0 +1,47 @@
+-- FreeFem++ v4.6 (Fri, Apr 03, 2020  2:08:08 PM - git v4.6)
+ Load: lg_fem lg_mesh lg_mesh3 eigenvalue
+    1 : mesh Th = square(20,20, [2 * x, y]);
+    2 : fespace Vh(Th, P1);
+    3 :
+    4 : Vh u;
+    5 : Vh v;
+    6 :
+    7 : for (int i = 1; i <= 10; i++) {
+    8 :
+    9 :     func f = (x * (1 - x)) * i;
+   10 :
+   11 :     solve s(u, v)
+   12 :     = int2d(Th)(
+   13 :     dx(u) * dx(v)
+   14 :     + u * v
+   15 :     ) - int2d(Th)(f * v);
+   16 :
+   17 :     plot(u, fill=true, value=true,wait=true);
+   18 : }
+   19 :  sizestack + 1024 =2144  ( 1120 )
+ 
+  -- Square mesh : nb vertices  =441 ,  nb triangles = 800 ,  nb boundary edges 80
+  -- Solve :
+          min -0.616616  max -0.131963
+  -- Solve :
+          min -1.23323  max -0.263925
+  -- Solve :
+          min -1.84985  max -0.395888
+  -- Solve :
+          min -2.46646  max -0.527851
+  -- Solve :
+          min -3.08308  max -0.659813
+  -- Solve :
+          min -3.6997  max -0.791776
+  -- Solve :
+          min -4.31631  max -0.923739
+  -- Solve :
+          min -4.93293  max -1.0557
+  -- Solve :
+          min -5.54954  max -1.18766
+  -- Solve :
+          min -6.16616  max -1.31963
+times: compile 0.014s, execution 3.557s,  mpirank:0
+ CodeAlloc : nb ptr  3490,  size :471824 mpirank: 0
+Ok: Normal End
+ try getConsole C:\Users\vadim\OneDrive\Desktop\New folder (2)\freefem\lab2.edp

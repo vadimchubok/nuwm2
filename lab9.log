@@ -1,0 +1,29 @@
+-- FreeFem++ v4.6 (Fri, Apr 03, 2020  2:08:08 PM - git v4.6)
+ Load: lg_fem lg_mesh lg_mesh3 eigenvalue
+    1 : mesh Th = square(20,20, [2 * x, y]);
+    2 : func f = 4;
+    3 : func globalsol = 1 + x * x + y * y;
+    4 :
+    5 :
+    6 : fespace Uh(Th, P1);
+    7 : Uh u;
+    8 : Uh v;
+    9 : Uh ans = globalsol;
+   10 :
+   11 : solve s(u, v)
+   12 : = int2d(Th)(dx(u) * dx(v) + dy(u) * dy(v))
+   13 : + int2d(Th)(f * v)
+   14 : + on(1, 2, 3, 4, u = globalsol);
+   15 :
+   16 :
+   17 : plot(ans, fill=true, value=true,wait=true);
+   18 : plot(u, fill=true, value=true,wait=true);
+   19 :  sizestack + 1024 =2320  ( 1296 )
+ 
+  -- Square mesh : nb vertices  =441 ,  nb triangles = 800 ,  nb boundary edges 80
+  -- Solve :
+          min 1  max 6
+times: compile 0.017s, execution 0.105s,  mpirank:0
+ CodeAlloc : nb ptr  3496,  size :472560 mpirank: 0
+Ok: Normal End
+ try getConsole C:\Users\vadim\OneDrive\Desktop\New folder (2)\freefem\lab9.edp

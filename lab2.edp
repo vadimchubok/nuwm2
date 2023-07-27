@@ -1,0 +1,18 @@
+mesh Th = square(20,20, [2 * x, y]);
+fespace Vh(Th, P1);
+
+Vh u;
+Vh v;
+
+for (int i = 1; i <= 10; i++) {
+
+    func f = (x * (1 - x)) * i;
+
+    solve s(u, v)
+    = int2d(Th)(
+    dx(u) * dx(v)
+    + u * v
+    ) - int2d(Th)(f * v);
+
+    plot(u, fill=true, value=true,wait=true);
+}

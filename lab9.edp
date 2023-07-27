@@ -1,0 +1,18 @@
+mesh Th = square(20,20, [2 * x, y]);
+func f = 4;
+func globalsol = 1 + x * x + y * y;
+
+
+fespace Uh(Th, P1);
+Uh u;
+Uh v;
+Uh ans = globalsol;
+
+solve s(u, v)
+= int2d(Th)(dx(u) * dx(v) + dy(u) * dy(v))
++ int2d(Th)(f * v)
++ on(1, 2, 3, 4, u = globalsol);
+
+
+plot(ans, fill=true, value=true,wait=true);
+plot(u, fill=true, value=true,wait=true);
